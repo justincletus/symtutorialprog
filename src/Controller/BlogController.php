@@ -4,31 +4,41 @@ namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use App\Service\Greeting;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 
 /**
  * BlogController class
  */
-class BlogController extends AbstractController
+class BlogController 
 {
 	/**
 	* @var Greeting
 	*/
 	private $greeting;
 
-	function __construct(Greeting $greeting)
+	/**
+	* @var Twig_Environment
+	*/
+	private $twig;
+
+	function __construct(Greeting $greeting, \Twig_Environment $twig)
 	{
 		$this->greeting = $greeting;
+		$this->twig 	= $twig;
 
 	}
 
 	/**
-	* @Route("/", name="blog_index")
+	* @Route("/{name}", name="blog_index")
 	*/
-	public function index(Request $request)
+	public function index($name)
 	{
-		return $this->render('base.html.twig', ['message' => $this->greeting->greet($request->get('name'))]);
+		$html = $this->twig->render('base.html.twig', ['message' => $this->greeting->greet($name)]);
+
+		return new Response($html);
 	}
 }
