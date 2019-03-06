@@ -12,6 +12,9 @@ use App\Form\MicroPostType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
+use Symfony\Component\HttpFoundation\Session\Flash\FlashBagInterface;
+
 /**
  * @Route("/micro-post")
  */
@@ -48,12 +51,19 @@ class MicroPostController
 	private $router;
 
 
+	/**
+	* @var FlashBagInterface
+	*/
+	private $flashBag;
+
+
 	function __construct(
 		\Twig_Environment $twig, 
 		MicroPostRepository $microPostRepository,
 		FormFactoryInterface $formFactory,
 		EntityManagerInterface $entityManager,
-		RouterInterface $router
+		RouterInterface $router,
+		FlashBagInterface $flashBag
 	)
 	{
 		$this->twig = $twig;
@@ -61,6 +71,8 @@ class MicroPostController
 		$this->formFactory = $formFactory;
 		$this->entityManager = $entityManager;
 		$this->router = $router;
+		$this->flashBag = $flashBag;
+
 	}
 	/**
 	* @Route("/", name="micro_post_index")
@@ -103,6 +115,7 @@ class MicroPostController
 	{
 		$this->entityManager->remove($microPost);
 		$this->entityManager->flush();
+		$this->flashBag->add('notice', 'Micro Post was deleted.');
 
 		return new RedirectResponse($this->router->generate('micro_post_index'));
 	}
