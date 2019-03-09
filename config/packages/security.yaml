@@ -1,4 +1,6 @@
 security:
+    access_decision_manager:
+        strategy: affiramative
     encoders:
         App\Entity\User: bcrypt
 
