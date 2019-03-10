@@ -18,18 +18,28 @@ class AppFixtures extends Fixture
         'email' => 'john_deo@doe.com',
         'password' => 'john123',
         'fullName' => 'John Deo',
+        'roles' =>[User::ROLE_USER]
     ],
     [
         'username' => 'john_britto',
         'email' => 'john_britto@doe.com',
         'password' => 'john123',
         'fullName' => 'John Britto',
+        'roles' =>[User::ROLE_USER]
     ],
     [
         'username' => 'john',
         'email' => 'john@doe.com',
         'password' => 'john123',
         'fullName' => 'John Ditto',
+        'roles' =>[User::ROLE_USER]
+    ],
+    [
+        'username' => 'super_admin',
+        'email' => 'super_admin@admin.com',
+        'password' => 'admin1234',
+        'fullName' => 'Micro Admin',
+        'roles' =>[User::ROLE_ADMIN]
     ],
     ];
 
@@ -88,6 +98,7 @@ class AppFixtures extends Fixture
             $user->setFullName($userData['fullName']);
             $user->setEmail($userData['email']);
             $user->setPassword($this->passwordEncoder->encodePassword($user, $userData['password']));
+            $user->setRoles($userData['roles']);
 
             $this->addReference($userData['username'], $user);
             $manager->persist($user);
