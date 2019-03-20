@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\User;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
 use Symfony\Component\Routing\Annotation\Route;
@@ -155,7 +156,7 @@ class MicroPostController
 	{
 		$user = $tokenStorage->getToken()->getUser();
         $microPost = new MicroPost();
-		$microPost->setTime(new \DateTime());
+//		$microPost->setTime(new \DateTime());
         $microPost->setUser($user);
 
 		$form = $this->formFactory->create(MicroPostType::class, $microPost);
@@ -174,6 +175,25 @@ class MicroPostController
 		);
 	}
 
+
+    /**
+     * @Route("/user/{username}", name="micro_post_user")
+     */
+    public function userPosts(User $userWithPosts)
+    {
+        $html = $this->twig->render(
+            'micro-post/user-posts.html.twig',
+            [
+                'posts' => $this->microPostRepository->findBy(
+                    ['user' => $userWithPosts],
+                    ['time' => 'DESC']
+                ),
+//                'posts' => $userWithPosts->getPosts(),
+                'user' => $userWithPosts
+            ]
+        );
+        return new Response($html);
+    }
 
 	/**
 	* @Route("/{id}", name="micro_post_post")
