@@ -16,7 +16,7 @@
         </button>
 
         <button style="display: {% if isLiked %}block{% else %}none{% endif %}"
-                class="btn btn-outline-secondary btn-sm" id="unlike">
+                class="btn btn-outline-danger btn-sm" id="unlike">
             Unlike<span class="badge badge-light" id="likes-unlike">{{ post.getLikedBy.count }}</span>
         </button>
     </div>
@@ -55,6 +55,9 @@
 
         function addOnClick(button, oppositeButton, likeCount, path) {
             button.addEventListener('click', function (event) {
+                {% if not app.user %}
+                    return window.location.replace('{{ path('user_register') }}');
+                {% endif %}
                 button.disabled = true;
 
                 fetch(path, {'credentials': 'include'}).then(function (response) {
