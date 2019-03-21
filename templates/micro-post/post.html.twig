@@ -12,18 +12,18 @@
 
         <button style="display: {% if not isLiked %}block{% else %}none{% endif %}"
                 class="btn btn-outline-secondary btn-sm" id="like">
-            Like<span class="badge badge-light" id="likes_like">{{ post.getLikedBy.count }}</span>
+            Like<span class="badge badge-light" id="likes-like">{{ post.getLikedBy.count }}</span>
         </button>
 
         <button style="display: {% if isLiked %}block{% else %}none{% endif %}"
                 class="btn btn-outline-secondary btn-sm" id="unlike">
-            Unlike<span class="badge badge-light" id="likes_unlike">{{ post.getLikedBy.count }}</span>
+            Unlike<span class="badge badge-light" id="likes-unlike">{{ post.getLikedBy.count }}</span>
         </button>
     </div>
 
 {% endblock %}
 
-{% block javascript %}
+{% block javascripts %}
 
 
     {{ parent() }}
@@ -60,7 +60,7 @@
                 fetch(path, {'credentials': 'include'}).then(function (response) {
                     response.json().then(function (json) {
                         likeCount.innerText = json.count;
-                        console.log(likeCount.innerText);
+//                        console.log(likeCount.innerText);
                         switchButtons(button, oppositeButton);
                     })
                 }).catch(function () {

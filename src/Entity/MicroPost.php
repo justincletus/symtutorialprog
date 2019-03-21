@@ -34,9 +34,6 @@ class MicroPost
     private $time;
 
 
-//    $private $user;
-
-
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="posts")
      * @ORM\JoinColumn(nullable=false)
@@ -46,7 +43,7 @@ class MicroPost
 
     /**
      * @ORM\ManyToMany(targetEntity="App\Entity\User", inversedBy="postsLiked")
-     * @ORM\JoinTable(name="posts_likes",
+     * @ORM\JoinTable(name="post_likes",
      *     joinColumns={@ORM\JoinColumn(name="post_id", referencedColumnName="id")},
      *     inverseJoinColumns={@ORM\JoinColumn(name="user_id", referencedColumnName="id")}
      * )
