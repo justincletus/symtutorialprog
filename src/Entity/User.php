@@ -65,6 +65,11 @@ class User implements UserInterface, \Serializable
     private $fullName;
 
     /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\MicroPost", mappedBy="likedBy")
+     */
+    private $postsLiked;
+
+    /**
      * @var array
      * @ORM\Column(type="simple_array")
      */
@@ -234,6 +239,14 @@ class User implements UserInterface, \Serializable
         $this->plainPassword = $plainPassword;
     }
 
+
+    public function follow(User $userToFollow)
+    {
+        if ($this->getFollowing()->contains($userToFollow)){
+            return;
+        }
+        $this->getFollowing()->add($userToFollow);
+    }
 
 
 }
