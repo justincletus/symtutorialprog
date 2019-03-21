@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\User;
+use App\Repository\UserRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
 use Symfony\Component\Routing\Annotation\Route;
@@ -99,11 +100,28 @@ class MicroPostController
 	/**
 	* @Route("/", name="micro_post_index")
 	*/
-	public function index()
+	public function index(TokenStorageInterface $storageInterface, UserRepository $userRepository)
 	{
-		$html = $this->twig->render('micro-post/index.html.twig',[
-			'posts' => $this->microPostRepository->findBy([], ['time' => 'DESC']),
-		]);
+		$currentUser = $storageInterface->getToken()->getUser();
+
+        $usersToFollow = [];
+        if ($currentUser instanceof User){
+            $posts = $this->microPostRepository
+                ->findAllByUsers($currentUser->getFollowing());
+            $usersToFollow = count($posts) === 0 ?
+                $userRepository->findAllWithMoreThan5PostsExceptUser($currentUser) : [];
+//            dump($usersToFollow);
+//            die();
+        }
+        else {
+            $posts = $this->microPostRepository
+                ->findBy([], ['time' => 'DESC']);
+        }
+        $html = $this->twig->render('micro-post/index.html.twig',
+            [
+			'posts' => $posts,
+                'usersToFollow' => $usersToFollow
+            ]);
 
 		return new Response($html);
 	}
