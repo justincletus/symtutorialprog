@@ -3,7 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="146b8924-8a8e-45a7-8135-89c73cffdfd6" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Entity/MicroPost.php" afterPath="$PROJECT_DIR$/src/Entity/MicroPost.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/micro-post/post.html.twig" afterPath="$PROJECT_DIR$/templates/micro-post/post.html.twig" />
     </list>
     <ignored path="symfony-01.iws" />
@@ -99,8 +98,8 @@
       <file leaf-file-name="post.html.twig" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/templates/micro-post/post.html.twig">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="393">
-              <caret line="62" column="59" selection-start-line="62" selection-start-column="59" selection-end-line="62" selection-end-column="59" />
+            <state relative-caret-position="513">
+              <caret line="70" column="19" selection-start-line="70" selection-start-column="19" selection-end-line="70" selection-end-column="19" />
               <folding>
                 <element signature="e#246#313#0#HTML" expanded="true" />
                 <element signature="e#516#579#0#HTML" expanded="true" />
@@ -548,7 +547,7 @@
       <workItem from="1552220115808" duration="17782000" />
       <workItem from="1553007652964" duration="4000" />
       <workItem from="1553084582005" duration="7390000" />
-      <workItem from="1553177171307" duration="1926000" />
+      <workItem from="1553177171307" duration="2469000" />
     </task>
     <task id="LOCAL-00001" summary="security file updated.">
       <created>1552155442692</created>
@@ -561,7 +560,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="47090000" />
+    <option name="totallyTimeSpent" value="47633000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="692" y="23" width="748" height="814" extended-state="0" />
@@ -1018,8 +1017,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/templates/micro-post/post.html.twig">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="393">
-          <caret line="62" column="59" selection-start-line="62" selection-start-column="59" selection-end-line="62" selection-end-column="59" />
+        <state relative-caret-position="513">
+          <caret line="70" column="19" selection-start-line="70" selection-start-column="19" selection-end-line="70" selection-end-column="19" />
           <folding>
             <element signature="e#246#313#0#HTML" expanded="true" />
             <element signature="e#516#579#0#HTML" expanded="true" />
