@@ -27,18 +27,26 @@
     <div class="order-2 order-md-1">
         <ul class="navbar-nav px-3">
             {% if is_granted('ROLE_USER') %}
+                <li class="nav-item text-nowrap border-right border-secondary">
+                    <a class="nav-link">
+                        Notifications
+                        <span class="badge badge-light" id="notification-count">
+                            <i class="fa fa-circle fa-circle-o-notch fa-spin"></i>
+                        </span>
+                    </a>
+                </li>
                 <li class="nav-item text-nowrap">
                     <a class="nav-link"
                        href="#">{{ app.user.fullName }}</a>
                 </li>
                 <li class="nav-item text-nowrap">
                     <a class="nav-link"
-                       href="{{ path('security_logout') }}">Sign out</a>
+                       href="{{ logout_path() }}">{{ 'Sign out'|trans }}</a>
                 </li>
             {% else %}
                 <li class="nav-item text-nowrap">
                     <a class="nav-link"
-                       href="{{ path('security_login') }}">Sign in</a>
+                       href="{{ path('security_login') }}">{{ 'Sign in'|trans }}</a>
                 </li>
             {% endif %}
         </ul>
@@ -53,6 +61,26 @@
 {% block javascripts %}
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
     <script src="{{ asset('build/js/app.js') }}"></script>
+    {% if is_granted('ROLE_USER') %}
+        <script>
+            function fetchNotificationCount() {
+                fetch(
+                        '{{ path('notification_unread') }}',
+                        {'credentials': 'include'}
+                ).then(function (response) {
+                    response.json().then(function (json) {
+                        document.getElementById('notification-count').innerText = json.count;
+                        setTimeout(fetchNotificationCount, 5000);
+                    });
+
+                }).catch(function (reason) {
+
+                });
+            }
+
+            fetchNotificationCount();
+        </script>
+    {% endif %}
 {% endblock %}
 </body>
 </html>
