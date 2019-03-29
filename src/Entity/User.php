@@ -104,6 +104,7 @@ class User implements UserInterface, \Serializable
         $this->posts = new ArrayCollection();
         $this->followers = new ArrayCollection();
         $this->following = new ArrayCollection();
+        $this->roles = [self::ROLE_USER];
     }
 
     /**
